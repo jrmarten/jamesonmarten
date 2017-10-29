@@ -1,0 +1,120 @@
+<html>
+<head>
+	<title>Sample</title>
+	<!-- ExtJS Style -->
+    <link rel="stylesheet" type="text/css" href="ext-3.1.0/resources/css/ext-all.css"/>        
+    
+    <!-- ExtJS 3.0.0 -->  
+	<script type="text/javascript" src="ext-3.1.0/adapter/ext/ext-base.js" ></script>  
+
+    <!-- ExtJS 3.0.0 Build -->  
+	<script type="text/javascript" src="ext-3.1.0/ext-all.js" ></script> 
+
+	<!-- Slider -->          
+    <script type="text/javascript" src="Ext.ux.Slider.js" ></script>
+    <script type="text/javascript" src="Ext.ux.SliderTip.js" ></script>
+    
+    <!-- Custom Slider Style -->    
+    <link href="ext-3.1.0/examples/slider/slider.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Common Styles for the examples -->    
+    <link href="ext-3.1.0/examples/shared/examples.css" rel="stylesheet" type="text/css" />        
+</head>
+
+<body>
+
+<script>
+
+Ext.BLANK_IMAGE_URL = 'ext-3.1.0/resources/images/default/s.gif';
+
+// application main entry point
+Ext.onReady(function() {
+    Ext.QuickTips.init();
+
+    /* horizontal demo */
+    var tracks = [
+        {name: 'track_1', value: 100},
+        {name: 'track_2', value: 50},
+        {name: 'track_3', value: 60},
+        {name: 'track_4', value: 10}
+    ]
+    
+    /* tip plugin */
+    var tip = new Ext.ux.SliderTip();
+    
+    var slider = new Ext.ux.Slider({
+        renderTo: 'horizontal-slider',
+        width: 400,
+        increment: 10,
+        minValue: 0,
+        maxValue: 200,
+        tracks: tracks,
+        overlap: false,
+        plugins: tip
+    });
+
+    slider.on('change', function(s, i) { console.log('changed[' + slider.getName(i) + ']: ' + slider.getValue(i)); });
+
+
+    /* vertical demo */    
+    var tracks_1 = [
+        { name: 'track_1', value: 0},
+        { name: 'track_2', value: 100},
+        { name: 'track_3', value: 200}
+    ]
+
+    /* custom tip plugin*/
+    var tip_1 = new Ext.ux.SliderTip({
+        getText: function(slider, i) {
+            return String.format('<b>{1} <br/> value : {0}</b>', slider.getValue(i), slider.getName(i));
+        }
+    });
+        
+    var sliderVertical = new Ext.ux.Slider({
+        renderTo: 'vertical-slider',
+        vertical: true,
+        increment: 10,
+        minValue: 0,
+        maxValue: 200,
+        height: 200,
+        tracks: tracks_1,
+        plugins: tip_1
+    });
+
+    sliderVertical.on('change', function(slider, i) { console.log('changed[' + slider.getName(i) + ']: ' + slider.getValue(i)); });
+    
+    /* custom style demo */
+    var tracks_2 = [
+        { name: 'A', value: 10},
+        { name: 'B', value: 90}
+    ]
+
+    var sliderCustomCss = new Ext.ux.Slider({
+        renderTo: 'custom-slider',
+        width: 214,
+        increment: 10,
+        minValue: 0,
+        maxValue: 100,
+        tracks: tracks_2, 
+        overlap:false
+    });
+                                                         
+}); 
+// eo function onReady
+</script>
+
+<h1>Ext ux Slider Example</h1>
+<p>Sliders support multiple trackers</p>
+
+<h3>Horizontal Slider</h3>
+<div id="horizontal-slider"></div>
+<br/>
+
+<h3>Vertical Slider</h3>
+<div id="vertical-slider"></div>
+<br/>
+
+<h3>CSS Customized Slider</h3>
+<div id="custom-slider"></div>
+          
+</html>
