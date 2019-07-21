@@ -1,0 +1,29 @@
+{
+  "name": "jamesonmarten",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrmarten/jamesonmarten.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrmarten/jamesonmarten/issues"
+  },
+  "homepage": "https://github.com/jrmarten/jamesonmarten#readme",
+  "dependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.36.1"
+  },
+  "devDependencies": {
+    "webpack-stream": "^5.2.1"
+  }
+}
