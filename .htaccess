@@ -1,6 +1,0 @@
-RewriteEngine on
-
-RewriteCond %{HTTP_HOST} ^www\.jamesonmarten\.com$
-RewriteRule ^/?$ "http\:\/\/jamesonmarten\.com\/" [R=302,L]
-
-ErrorDocument 404 /missing.html
