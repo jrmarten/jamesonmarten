@@ -1,27 +1,55 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  greetings: 'Welcome to the personal site of Jameson Marten.  Come on in, stay a while.'
-  entry: "./src/scripts/app.js", //relative to root of the application
-  output: {
-    filename: "./dist/app.bundle.js" //relative to root of the application
-  },
-  watch: true,
-  resolve: { extensions: [".js", ".ts"] },
-  module: {
-    rules: [
-      {
-        test: /\.html$/,
-        use: [{ loader: "html-loader", options: { minimize: true } }],
-      },
+    entry: {
+        main: './src/index.js',
+        vendor: './src/vendor.js'
+    },
+    output: {
+        filename: '[name].bundle.js',
+        path: __dirname + '/dist'
+    },
+    resolve: {
+        extensions: ['.js', '.ts']
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Webpack 4 Starter',
+            template: './src/index.html',
+            inject: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: false
+            }
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'style.css'
+        })
     ],
-  },
-  plugins: [
-    new HtmlWebPackPlugin({
-      title: 'Jameson Marten\'s Brag Page ',
-      myPageHeader: 'Jameson Marten | Web Developer, Salesforce Developer',
-      template: './src/index.html',
-      filename: './dist/index.html' //relative to root of the application
-    }),
-  ],
+    module: {
+        rules: [
+            {
+                test: [/.js$|.ts$/],
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/typescript'
+                        ]
+                    }
+                },
+
+                test: [/.css$|.scss$/],
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ]
+            }
+        ]
+    }
 };
