@@ -1,14 +1,21 @@
-import { Header } from './app/header';
-import { Footer } from './app/footer';
-import './styles/scss/main.scss';
+import { hello, tes } from './scripts/import-example';
 
-let header = new Header();
-let firstHeading = header.getFirstHeading();
+import './styles/style.css';
+import './styles/style.scss';
+import './styles/style.sass';
 
-let footer = new Footer();
-let footerText = footer.getFooterText();
+hello();
 
+async function run() {
+  const value = await tes();
+  console.log(value)
+}
 
-console.log('This is index JS');
-console.log(firstHeading);
-console.log(footerText);
+run();
+
+async function lazyLoadExample() {
+  const { lazyLoad } = await import('./scripts/lazy-load-example');
+  lazyLoad().then(res => console.log(res));
+};
+
+document.querySelector("#lazy-load").addEventListener('click', lazyLoadExample);
