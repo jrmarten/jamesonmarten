@@ -1,58 +1,220 @@
 /* Here are example using scss */
 
-html {
-  box-sizing: border-box;
-  font-size: 62.5%;
-}
+@import 'variables.scss';
+@import 'animate.css';
+@import 'fonts.scss';
+@import 'variables.scss';
+@import 'animations.scss';
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  background-color: #282c34;
-  color: #fff;
-  font-size: 1.6rem;
-  text-align: center;
+    font-family: $font-sans-primary;
 
-  & > * {
-    margin: 2rem 0;
-  }
+    &,
+    *,
+    *:before,
+    *:after {
+        position: relative;
+        display: block;
+        box-sizing: border-box;
+    }
 }
 
 .header {
-  h1 {
-    font-size: 3.5rem;
-  }
-}
-
-.example {
-  display: flex;
-  justify-content: center;
-
-  &-style,
-  &-lazy-load {
-    margin: 3rem 2rem;
-  }
-}
-
-.from-scss {
-  color: #0096FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .link {
-  color: #61dafb;
-  font-size: 2rem;
-  margin-top: 3rem;
+    color: #61dafb;
+    font-size: 2rem;
+    margin-top: 3rem;
 }
 
-#lazy-load {
-  padding: 1rem 1.5rem;
-  border: 0;
-  border-radius: 10rem;
-  outline: none;
+section {
+    width: 100%;
+    padding: 0 5%;
+    display: flex;
+    margin: 0;
+    color: #77daf1;
+    background-color: #373b44;
+    height: 50vh;
+
+    &:nth-of-type(2n) {
+        background-color: #77daf1;
+        color: #373b44;
+    }
+}
+
+.reveal,
+.reveal::after {
+    animation-delay: 0;
+    animation-delay: var(--animation-delay, 1s);
+    animation-iteration-count: 1;
+    animation-iteration-count: var(--iterations, 1);
+    animation-duration: 800ms;
+    animation-duration: var(--duration, 800ms);
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.reveal {
+    animation-name: text;
+    color: #fff;
+    white-space: nowrap;
+    cursor: default;
+    text-transform: uppercase;
+}
+
+.reveal::after {
+    content: '';
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f2f98b;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    pointer-events: none;
+    animation-name: revealer;
+}
+
+.reveal-delay,
+.reveal-delay:after {
+    animation-delay: 3s;
+    animation-delay: var(--animation-delay, 3s);
+    animation-duration: 1000ms;
+    animation-duration: var(--duration, 1000ms);
+}
+
+.tag-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tag {
+    margin-bottom: 2rem;
+    padding: 2rem 5rem 2rem;
+    height: 19rem;
+    border-radius: 30px;
+    font-size: 3rem;
+    color: #fff;
+    background: #f8012d;
+    text-align: center;
+    font-family: $font-sans-primary;
+    box-shadow: 0 1px 15px -7.5px #000000;
+    /* position relative for the pseudo element(s) */
+    position: relative;
+}
+
+.tag:before {
+    content: '';
+    position: absolute;
+    top: 9rem;
+    left: 2%;
+    width: 96%;
+    height: 9rem;
+    background: #fff;
+    /* border-radius mathing the .tag container */
+    border-radius: 0 0 30px 30px;
+}
+
+.tag:after {
+    content: 'Jameson Marten';
+    position: absolute;
+    top: 11.25rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: $font-special;
+    font-size: 2rem;
+    letter-spacing: 0.25rem;
+    font-weight: 300;
+    font-weight: bold;
+    color: #000;
+}
+
+section.fly-in {
+    transition: 1s ease-in-out;
+    transform: translate(200px, 0);
+
+    &.visible {
+        transform: translate(0, 0);
+    }
+}
+
+.wrapper {
+    transition: background 0.2s ease;
+}
+.section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.short {
+    height: (100vh / 3);
+}
+
+.title {
+    white-space: nowrap;
+    font-weight: 100;
+    font-size: 4vw;
+    color: #ecf0f1;
+
+    a {
+        color: inherit;
+    }
+}
+
+.revealer {
+    position: relative;
+}
+
+.revealme {
+    transition: all 1s ease;
+    opacity: 0;
+}
+
+.active .revealme {
+    opacity: 1;
+}
+
+.revealme.fromleft {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: -100%;
+}
+
+.active .revealme.fromleft {
+    opacity: 1;
+    left: 2%;
+}
+
+.revealme.fromright {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: -100%;
+}
+
+.active .revealme.fromright {
+    opacity: 1;
+    right: 2%;
 }

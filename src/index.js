@@ -1,21 +1,41 @@
-import { hello, tes } from './scripts/import-example';
+/* Import JS files */
+import { hello, test } from './scripts/test';
+import { projects } from './scripts/projects';
 
+/* Import style files */
 import './styles/style.css';
 import './styles/style.scss';
-import './styles/style.sass';
 
-hello();
+// hello();
 
 async function run() {
-  const value = await tes();
-  console.log(value)
+  const value = await test();
+  console.log('test value: ', value)
 }
 
 run();
 
-async function lazyLoadExample() {
-  const { lazyLoad } = await import('./scripts/lazy-load-example');
-  lazyLoad().then(res => console.log(res));
-};
+// reveal point from bottom and top of the window
+var revealerpoint = 150;
+window.addEventListener('scroll', reveal);
+reveal();
 
-document.querySelector("#lazy-load").addEventListener('click', lazyLoadExample);
+function reveal() {
+  console.log("scrolling");
+  var revealers = document.querySelectorAll('.revealer');
+  for (var i = 0; i < revealers.length; i++) {
+    var windowheight = window.innerHeight;
+    var revealertop = revealers[i].getBoundingClientRect().top;
+    var revealerbottom = revealers[i].getBoundingClientRect().bottom;
+    //console.log("revealertop: " + revealertop);
+    //console.log("revealerbottom: " + revealerbottom);
+    if (revealertop < windowheight - revealerpoint) {
+      revealers[i].classList.add('active')
+    } else {
+      revealers[i].classList.remove('active');
+    };
+    if (revealerbottom < 0 + revealerpoint) {
+      revealers[i].classList.remove('active');
+    }
+  }
+};
